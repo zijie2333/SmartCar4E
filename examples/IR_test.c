@@ -9,8 +9,8 @@ void IntToString(char *str, int number)
 
 int main()
 {
-    int dis;
-    char string[50];
+    int dist_int;
+    char dist_str[50];
     CyGlobalIntEnable; /* Enable global interrupts. */
 
     LCD_Char_Start();
@@ -20,14 +20,15 @@ int main()
 
     for(;;)
     {
-      dis = (int)(IR_query());
-      IntToString(string, dis);
+      dist_int = (int)(IR_query(10));
+      IntToString(dist_str, dist_int);
       LCD_Char_Position(0, 0);
-      LCD_Char_PrintString("The IR Distant is ");
+      LCD_Char_PrintString("Left IR Dist is ");
       LCD_Char_Position(1, 0);
       LCD_Char_PrintString("        ");
+
       LCD_Char_Position(1, 0);
-      LCD_Char_PrintString(string);
+      LCD_Char_PrintString(dist_str);
 
       CyDelay(500);
     }
