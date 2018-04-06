@@ -15,9 +15,9 @@ CY_ISR(InterruptHandler)
   Timer_ReadStatusRegister();
 	if(n==1) //不要在初始化的时候初始化这个组件，因为会产生中断中调用同时main函数调用从而有warning
 	{
-		QuadDec_L_Start();
+	QuadDec_L_Start();
     QuadDec_L_TriggerCommand(QuadDec_L_MASK, QuadDec_L_CMD_RELOAD);
-		QuadDec_L_WriteCounter(0);
+	QuadDec_L_WriteCounter(0);
     QuadDec_R_Start();
     QuadDec_R_TriggerCommand(QuadDec_R_MASK, QuadDec_R_CMD_RELOAD);
     QuadDec_R_WriteCounter(0);
