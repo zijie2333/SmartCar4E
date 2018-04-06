@@ -16,7 +16,9 @@ float IR_query(ID){
     return ADC_polling(ID);
   } else if(ID==10 || ID==11){
     return ADC_polling(ID-10);
-  } else { }
+  } else {
+      return -10086;
+  }
 
 /*
   for (; ; ) {
@@ -31,6 +33,15 @@ float IR_query(ID){
     }
   }
 */
+
+}
+
+float IR_normal_rst(float th_blk, float th_low, float th_high){
+    float IR_left = IR_query(0);
+    float IR_mid = IR_query(2);
+    float IR_right = IR_query(1);
+
+    return 1;
 
 }
 

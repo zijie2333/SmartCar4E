@@ -1,6 +1,7 @@
 #include <stdbool.h> //support bool type on C
 #include "./cruise.h"
 #include "./PID.h"
+#include "../modules/LCD/LCD.h"
 #include "../modules/encoder/encoder.h"
 #include "../modules/IR/IR.h"
 
@@ -51,20 +52,25 @@ void cruise_main(float target_speed)
 
 bool read_encoder_speed(float *vl, float *vr)
 {
+
     *vl = encoder_query(0);
     *vr = encoder_query(1);
-	// return true if reading succeeds else false
-	// TODO: add code for encoder here
-	//
+
+    if (*vl==-10086 || *vr==-10086) {
+        return false;
+    }
 	return true;
 }
+
 bool read_cruise_error(float *error)
 {
-	// return true if reading succeeds else false
-	// TODO: add code for 3 cruise devices
-	//
+	*error = IR_normal_rst(2000,0,2000);
+    if (*error ==-10086) {
+        return false;
+    }
 	return true;
 }
+
 void cruise_update_motors(float PWM_left, float PWM_right)
 {
 	// TODO: add code for controlling motors
@@ -72,6 +78,7 @@ void cruise_update_motors(float PWM_left, float PWM_right)
 
 void error_handling(const char * error_message)
 {
+    LCD_disp(error_message);
 	//TODO: print information through UART
 	//      maybe also display information on LCD
 
@@ -79,6 +86,7 @@ void error_handling(const char * error_message)
 
 void components_init()
 {
+    LCD_init();
     encoder_init();
     IR_init();
 }

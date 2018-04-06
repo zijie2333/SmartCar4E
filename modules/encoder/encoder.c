@@ -50,5 +50,7 @@ float encoder_query(ID){
     return linear_velocity_L;
   } else if(ID==1){
     return linear_velocity_R;
-  } else { }
+  } else {
+      return -10086;
+  }
 }
