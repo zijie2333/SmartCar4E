@@ -9,9 +9,7 @@ void LCD_init(){
 
 void LCD_disp(const char* str){
     LCD_Char_Position(0, 0);
-    LCD_Char_PrintString("error: ");
-    LCD_Char_Position(1, 0);
-    LCD_Char_PrintString("        ");
-    LCD_Char_Position(1, 0);
+    //LCD_Char_PrintString("error: ");
+    //LCD_Char_Position(1, 0);
     LCD_Char_PrintString(str);
 }

@@ -20,7 +20,7 @@ int main()
 
     for(;;)
     {
-      dist_int = (int)(IR_query(10));
+      dist_int = (int)(IR_normal_rst(0,0,0));
       IntToString(dist_str, dist_int);
       LCD_Char_Position(0, 0);
       LCD_Char_PrintString("Left IR Dist is ");

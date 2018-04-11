@@ -10,8 +10,6 @@ void IR_init(){
 // 0 for left; 2 for middle; 1 for right; 10 for left_distant; 11 for right_distant
 float IR_query(ID){
 
-  //uint32 ADC_Result = 0;
-  //float dist;
   if(ID==0 || ID==1 || ID==2){
     return ADC_polling(ID);
   } else if(ID==10 || ID==11){
@@ -19,30 +17,28 @@ float IR_query(ID){
   } else {
       return -10086;
   }
-
-/*
-  for (; ; ) {
-    ADC_SAR_Seq_1_IsEndConversion(ADC_SAR_Seq_1_WAIT_FOR_RESULT);
-    ADC_Result = ADC_SAR_Seq_1_GetResult16(ID);
-    if (ADC_Result>0x7FFF) {
-      ADC_Result = 0;
-    }
-    if (ADC_Result>0) {
-      dist = 0.5/(0.00002*ADC_Result-0.00045)-2;
-      return dist;
-    }
-  }
-*/
-
 }
 
-float IR_normal_rst(float th_blk, float th_low, float th_high){
+float IR_normal_rst(){
+    float th_blk_l = 1800;
+
     float IR_left = IR_query(0);
     float IR_mid = IR_query(2);
     float IR_right = IR_query(1);
 
-    return 1;
-
+    if (IR_right>th_blk && IR_mid<th_blk && IR_left<th_blk_l) {
+      return 1;
+    } else if (IR_right>th_blk && IR_mid>th_blk && IR_left<th_blk_l) {
+      return 0.5;
+    } else if (IR_right<th_blk && IR_mid>th_blk && IR_left<th_blk_l) {
+      return 0;
+    } else if (IR_right<th_blk && IR_mid>th_blk && IR_left>th_blk_l) {
+      return -0.5;
+    } else if (IR_right<th_blk && IR_mid<th_blk && IR_left>th_blk_l) {
+      return -1;
+    } else {
+      return -10086;
+    }
 }
 
 float ADC_polling(pin){
