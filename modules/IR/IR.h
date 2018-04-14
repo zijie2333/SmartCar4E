@@ -3,6 +3,8 @@
 
 void IR_init();  //initialize infraed distant sensor
 
-float IR_query();  //query distance
+float IR_query(int LR);  //query distance
+
+float ADC_polling(int pin);
 
 #endif
