@@ -1,6 +1,6 @@
 #include "./PID.h"
 
-void PIDinit(float kp, float ki, float kd, PID_params* param)
+void PIDinit(float kp, float ki, float kd, struct PID_params* param)
 {
 	param->kp = kp;
 	param->ki = ki;
@@ -9,7 +9,7 @@ void PIDinit(float kp, float ki, float kd, PID_params* param)
 	param->last_e = 0.0;
 }
 
-float PIDupdate(float err, PID_params* param)
+float PIDupdate(float err, struct PID_params* param)
 {
 	float P = param->kp * err;
 	float I = param->ki * param->int_e;

@@ -15,9 +15,9 @@ CY_ISR(InterruptHandler)
   Timer_ReadStatusRegister();
 	if(n==1) //不要在初始化的时候初始化这个组件，因为会产生中断中调用同时main函数调用从而有warning
 	{
-		QuadDec_L_Start();
+	  QuadDec_L_Start();
     QuadDec_L_TriggerCommand(QuadDec_L_MASK, QuadDec_L_CMD_RELOAD);
-		QuadDec_L_WriteCounter(0);
+	  QuadDec_L_WriteCounter(0);
     QuadDec_R_Start();
     QuadDec_R_TriggerCommand(QuadDec_R_MASK, QuadDec_R_CMD_RELOAD);
     QuadDec_R_WriteCounter(0);
@@ -32,15 +32,11 @@ CY_ISR(InterruptHandler)
   QuadDec_R_WriteCounter(0);//计数器清零
   speed_R = num_R/(1); 	//speed = num*6*60/360
   linear_velocity_R = 0.01*R*speed_R*(2*PI);//单位是 m/min
-
-	PWM_WriteCompare(6000);
 }
 
 void encoder_init(){
   CyGlobalIntEnable;//允许全局中断
   isr_StartEx(InterruptHandler);// 初始化中断
-  PWM_Start();
-  PWM_WriteCompare(4500);
   Timer_Enable();
   Timer_Start();		//最后启动时钟，否则定时中断可能先于正交解码器运作开始而来
 }
@@ -50,5 +46,7 @@ float encoder_query(ID){
     return linear_velocity_L;
   } else if(ID==1){
     return linear_velocity_R;
-  } else { }
+  } else {
+      return -10086;
+  }
 }
