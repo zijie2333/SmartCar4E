@@ -2,6 +2,7 @@
 #include "./wall.h"
 #include "./PID.h"
 #include "./box_filter.h"
+#include "../modules/Sonar/Sonar.h"
 
 /*
 	Posc4 walking through mazed by walking along the wall
@@ -166,6 +167,8 @@ bool read_front_dst(float * distance)
 		Output:
 			bool success; reading succeeded or not
 	*/
+	*distance = Sonar_query();
+	if(*distance==-10086) return false;
 	return true;
 }
 
