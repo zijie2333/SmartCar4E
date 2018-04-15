@@ -43,7 +43,7 @@ void cruise_main(float target_speed)
 			error_handling("Read encoder failed in cruise.");
 
 		v0 = (vl + vr) / 2.0;
-		w0 = (vl - vl) / WHEEL_DISTANCE;
+		w0 = (vl - vr) / WHEEL_DISTANCE;
 
 
 		// Read cruise error

@@ -1,8 +1,10 @@
 #ifndef __WALL_H
 #define __WALL_H
 
-#define LEFT 0
+#define LEFT -1
 #define RIGHT 1
+
+#define WHEEL_DISTANCE 10
 
 void wall_components_init();
 void wall(bool left_or_right, float threshold, float target_speed);
@@ -14,6 +16,7 @@ bool read_collision(bool *collision);
 bool read_front_dst(float * distance);
 bool read_encoder_speed(float *vl, float *vr);
 void error_handling(const char * error_message);
+void update_motor(float PWM_left, float PWM_right);
 
 // Wall API
 bool detect_front_wall(float *distance, float threshold, bool * has_wall);
