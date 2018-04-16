@@ -91,8 +91,8 @@ void wall(const int left_or_right, const float threshold_side, const float thres
 
 	}
 
-	box_filter_destroy(&box_filter1);
-	box_filter_destroy(&box_filter2);
+	box_filter_release(&box_filter1);
+	box_filter_release(&box_filter2);
 }
 
 
