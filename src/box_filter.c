@@ -6,7 +6,7 @@ void box_filter_init(int len, struct box_filter_params* filter)
 	int i = 0;
 	filter->box_size = len;
 	filter->frame = 0;
-	filter->data = (float*)malloc(filter->box_size, sizeof(float));
+	filter->data = (float*)malloc(filter->box_size * sizeof(float));
 	for(i = 0;i < filter->box_size; i++) filter->data[i] = 0; 
 }
 float box_filter_update(float input, struct box_filter_params* filter)

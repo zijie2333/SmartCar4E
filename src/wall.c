@@ -1,7 +1,7 @@
 #include <stdbool.h> //support bool type on C
 #include "./wall.h"
 #include "./PID.h"
-#include "./box_filter.h"
+//#include "./box_filter.h"
 #include "../modules/Sonar/Sonar.h"
 
 /*
@@ -56,7 +56,7 @@ void wall(const int left_or_right, const float threshold_side, const float thres
 		}
 
 		detect_front_wall(&front_wall_dst, threshold_front, &has_front_wall, &box_filter1);
-		detect_side_wall(&side_wall_dst, threshold_side, &has_side_wall, &box_filter2);
+		detect_side_wall(&side_wall_dst, threshold_side, &has_side_wall, left_or_right, &box_filter2);
 
 		// Read encoder speed vl, vr
 		if(!read_encoder_speed(&vl, &vr))
@@ -172,7 +172,7 @@ bool read_front_dst(float * distance)
 	return true;
 }
 
-bool detect_side_wall(float *distance, float threshold, bool * has_wall, bool left_or_right, struct box_filter_params *box_filter)
+bool detect_side_wall(float *distance, float threshold, bool * has_wall, int left_or_right, struct box_filter_params *box_filter)
 {
 	float tmp_dst = 0.0;
 	if(!read_radar_dst(&tmp_dst, left_or_right))
